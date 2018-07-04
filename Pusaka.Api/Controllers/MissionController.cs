@@ -41,7 +41,7 @@ namespace Pusaka.Api.Controllers
             ExceptionModel oResult = new ExceptionModel();
             try
             {
-                bool isSuccess = await _svc.Add(entity);
+                bool isSuccess = await _svc.Add(entity, "0");
                 if (isSuccess)
                 {
                     oResult.ErrorCode = (int)ExceptionType.SUCCESS;
