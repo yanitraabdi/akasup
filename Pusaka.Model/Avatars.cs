@@ -21,4 +21,22 @@ namespace Pusaka.Model
 
         public ICollection<UserProfile> UserProfile { get; set; }
     }
+
+    public class ListAvatars : ExceptionModel
+    {
+        public ListAvatars()
+        {
+            listAvatars = new List<Avatars>();
+        }
+        public IEnumerable<Avatars> listAvatars { get; set; }
+    }
+
+    public class SingleAvatars : ExceptionModel
+    {
+        public SingleAvatars()
+        {
+            Avatars = new Avatars();
+        }
+        public Avatars Avatars { get; set; }
+    }
 }

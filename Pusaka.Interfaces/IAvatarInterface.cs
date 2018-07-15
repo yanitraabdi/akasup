@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Pusaka.Model;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Pusaka.Interfaces
 {
-    interface IAvatarInterface
+    public interface IAvatarInterface : IGeneralInterface<Avatars>
     {
     }
 }
