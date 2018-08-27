@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Pusaka.Interfaces
 {
-    public interface ICategoryInterface : IGeneralInterface<PusakaCategory>
+    public interface ICategoryInterface : IGeneralInterface<Category>
     {
     }
 }

@@ -11,18 +11,18 @@ using Pusaka.Services.Services;
 namespace Pusaka.Api.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Mission")]
-    public class MissionController : Controller
+    [Route("api/Category")]
+    public class CategoryController : Controller
     {
-        MissionService _svc = new MissionService();
+        CategoryService _svc = new CategoryService();
 
-        [HttpGet("[action]")]
-        public async Task<IActionResult> GetMissions(int? CategoryId = 0, string City = "", string MisName = "", int? MisStatus = 0, int? CurrentPage = 0, int? PageSize = 0, string OrderByColumn = "", int? IsAscending = 0, int? TotalRecords = 0)
+        [HttpGet("")]
+        public async Task<IActionResult> GetCategory(int? BadgeStatus = 0, int? CurrentPage = 0, int? PageSize = 0, int? TotalRecords = 0)
         {
-            ListMissions oResult = new ListMissions();
+            ListCategory oResult = new ListCategory();
             try
             {
-                oResult.listMissions = await _svc.GetAllAsync(CategoryId, City, MisName, MisStatus, CurrentPage, PageSize, OrderByColumn,IsAscending,TotalRecords);
+                oResult.listCategory = await _svc.GetAllAsync(CurrentPage, PageSize, TotalRecords);
                 oResult.ErrorCode = (int)ExceptionType.SUCCESS;
                 oResult.ErrorDesc = ExceptionType.SUCCESS.ToString();
 
@@ -35,8 +35,8 @@ namespace Pusaka.Api.Controllers
             return Ok(oResult);
         }
 
-        [HttpPost("[action]")]
-        public async Task<IActionResult> InsertMission([FromBody]Missions entity)
+        [HttpPost("")]
+        public async Task<IActionResult> InsertCategory([FromBody]Category entity)
         {
             ExceptionModel oResult = new ExceptionModel();
             try
@@ -56,13 +56,34 @@ namespace Pusaka.Api.Controllers
             return Ok(oResult);
         }
 
-        [HttpPut("[action]")]
-        public async Task<IActionResult> UpdateMission([FromBody]Missions entity, string userId)
+        [HttpPut("{id:int}")]
+        public async Task<IActionResult> UpdateCategory([FromBody]Category entity, string id)
         {
             ExceptionModel oResult = new ExceptionModel();
             try
             {
-                bool isSuccess = await _svc.UpdateAsync(entity, userId);
+                bool isSuccess = await _svc.UpdateAsync(entity, id);
+                if (isSuccess)
+                {
+                    oResult.ErrorCode = (int)ExceptionType.SUCCESS;
+                    oResult.ErrorDesc = ExceptionType.SUCCESS.ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                oResult.ErrorCode = (int)ExceptionType.CATCH;
+                oResult.ErrorDesc = ex.ToString();
+            }
+            return Ok(oResult);
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> DeleteCategory(string id)
+        {
+            ExceptionModel oResult = new ExceptionModel();
+            try
+            {
+                bool isSuccess = await _svc.DeleteAsync(id ,"0");
                 if (isSuccess)
                 {
                     oResult.ErrorCode = (int)ExceptionType.SUCCESS;

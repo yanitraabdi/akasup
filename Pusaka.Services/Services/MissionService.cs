@@ -17,7 +17,7 @@ namespace Pusaka.Services.Services
         internal const string conn = Constants.ConnectionString;
         ConnectionFactory _conn = new ConnectionFactory();
 
-        public async Task<bool> Add(Missions entity, string userId)
+        public async Task<bool> AddAsync(Missions entity, string userId)
         {
             using (var sqlConnection = new SqlConnection(Constants.ConnectionString))
             {
@@ -103,12 +103,12 @@ namespace Pusaka.Services.Services
             }
         }
 
-        public Task<IEnumerable<Missions>> GetAllAsync()
+        public Task<IEnumerable<Missions>> GetAllAsync(int? CurrentPage, int? PageSize, int? TotalRecords)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<bool> Update(Missions entity, string userId)
+        public async Task<bool> UpdateAsync(Missions entity, string userId)
         {
             using (var sqlConnection = new SqlConnection(conn))
             {

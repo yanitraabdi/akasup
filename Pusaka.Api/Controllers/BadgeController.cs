@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Pusaka.Library;
 using Pusaka.Model;
@@ -11,18 +10,18 @@ using Pusaka.Services.Services;
 namespace Pusaka.Api.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Mission")]
-    public class MissionController : Controller
+    [Route("api/Badge")]
+    public class BadgeController : Controller
     {
-        MissionService _svc = new MissionService();
+        BadgeService _svc = new BadgeService();
 
         [HttpGet("[action]")]
-        public async Task<IActionResult> GetMissions(int? CategoryId = 0, string City = "", string MisName = "", int? MisStatus = 0, int? CurrentPage = 0, int? PageSize = 0, string OrderByColumn = "", int? IsAscending = 0, int? TotalRecords = 0)
+        public async Task<IActionResult> GetBadges(int? CategoryId = 0, string City = "", string MisName = "", int? MisStatus = 0, int? CurrentPage = 0, int? PageSize = 0, string OrderByColumn = "", int? IsAscending = 0, int? TotalRecords = 0)
         {
-            ListMissions oResult = new ListMissions();
+            ListBadges oResult = new ListBadges();
             try
             {
-                oResult.listMissions = await _svc.GetAllAsync(CategoryId, City, MisName, MisStatus, CurrentPage, PageSize, OrderByColumn,IsAscending,TotalRecords);
+                //oResult.listBadges = await _svc.GetAllAsync(CategoryId, City, MisName, MisStatus, CurrentPage, PageSize, OrderByColumn, IsAscending, TotalRecords);
                 oResult.ErrorCode = (int)ExceptionType.SUCCESS;
                 oResult.ErrorDesc = ExceptionType.SUCCESS.ToString();
 
@@ -36,7 +35,7 @@ namespace Pusaka.Api.Controllers
         }
 
         [HttpPost("[action]")]
-        public async Task<IActionResult> InsertMission([FromBody]Missions entity)
+        public async Task<IActionResult> InsertBadge([FromBody]Badge entity)
         {
             ExceptionModel oResult = new ExceptionModel();
             try
@@ -57,7 +56,7 @@ namespace Pusaka.Api.Controllers
         }
 
         [HttpPut("[action]")]
-        public async Task<IActionResult> UpdateMission([FromBody]Missions entity, string userId)
+        public async Task<IActionResult> UpdateBadge([FromBody]Badge entity, string userId)
         {
             ExceptionModel oResult = new ExceptionModel();
             try

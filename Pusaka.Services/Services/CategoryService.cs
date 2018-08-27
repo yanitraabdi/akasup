@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Newtonsoft.Json;
 using Pusaka.Interfaces;
 using Pusaka.Library;
 using Pusaka.Model;
@@ -12,22 +13,24 @@ using System.Threading.Tasks;
 
 namespace Pusaka.Services.Services
 {
-    public class UserService : IUserInterface
+    public class CategoryService : ICategoryInterface
     {
         internal const string conn = Constants.ConnectionString;
         ConnectionFactory _conn = new ConnectionFactory();
 
-        public async Task<bool> AddAsync(Users entity, string userId)
+        public async Task<bool> AddAsync(Category entity, string userId)
         {
-            using (var sqlConnection = new SqlConnection(Constants.ConnectionString))
+            using (var sqlConnection = new SqlConnection(conn))
             {
+                string jsonData = JsonConvert.SerializeObject(entity);
                 await sqlConnection.OpenAsync();
+
                 var dynamicParameters = new DynamicParameters();
-                dynamicParameters.Add("@jsonData", entity);
+                dynamicParameters.Add("@jsondata", jsonData);
                 dynamicParameters.Add("@userId", userId);
 
                 await sqlConnection.ExecuteAsync(
-                    "s_insert_TVChannel",
+                    "BO_CATEGORY_POST",
                     dynamicParameters,
                     commandType: CommandType.StoredProcedure);
 
@@ -35,17 +38,18 @@ namespace Pusaka.Services.Services
             }
         }
 
-        public async Task<bool> DeleteAsync(string id, string userId)
+        public async Task<bool> DeleteAsync(string Id, string userId)
         {
-            using (var sqlConnection = new SqlConnection(Constants.ConnectionString))
+            using (var sqlConnection = new SqlConnection(conn))
             {
                 await sqlConnection.OpenAsync();
+
                 var dynamicParameters = new DynamicParameters();
-                dynamicParameters.Add("@id", id);
+                dynamicParameters.Add("@id", Id);
                 dynamicParameters.Add("@userId", userId);
 
                 await sqlConnection.ExecuteAsync(
-                    "s_get_TVChannel",
+                    "BO_CATEGORY_DELETE",
                     dynamicParameters,
                     commandType: CommandType.StoredProcedure);
 
@@ -53,43 +57,43 @@ namespace Pusaka.Services.Services
             }
         }
 
-        public async Task<Users> Get(int Id)
+        public Task<Category> Get(int Id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<IEnumerable<Category>> GetAllAsync(int? CurrentPage, int? PageSize, int? TotalRecords)
         {
             using (var sqlConnection = new SqlConnection(conn))
             {
                 await sqlConnection.OpenAsync();
-                var dynamicParameters = new DynamicParameters();
-                dynamicParameters.Add("@tvId", Id);
 
-                return await sqlConnection.QuerySingleOrDefaultAsync<Users>(
-                    "s_get_TVChannel_by_id",
+                var dynamicParameters = new DynamicParameters();
+                dynamicParameters.Add("@Status", 255);
+                dynamicParameters.Add("@CurrentPage", CurrentPage == 0 ? 1 : CurrentPage);
+                dynamicParameters.Add("@PageSize", PageSize == 0 ? 500 : PageSize);
+                dynamicParameters.Add("@TotalRecords", TotalRecords == 0 ? 500 : TotalRecords);
+
+                return await sqlConnection.QueryAsync<Category>(
+                    "BO_CATEGORY_GET",
                     dynamicParameters,
                     commandType: CommandType.StoredProcedure);
             }
         }
 
-        public async Task<IEnumerable<Users>> GetAllAsync(int? CurrentPage, int? PageSize, int? TotalRecords)
+        public async Task<bool> UpdateAsync(Category entity, string userId)
         {
             using (var sqlConnection = new SqlConnection(conn))
             {
+                string jsonData = JsonConvert.SerializeObject(entity);
                 await sqlConnection.OpenAsync();
-                return await sqlConnection.QueryAsync<Users>(
-                    "s_get_TVChannel",
-                    null,
-                    commandType: CommandType.StoredProcedure);
-            }
-        }
 
-        public async Task<bool> UpdateAsync(Users entity, string userId)
-        {
-            using (var sqlConnection = new SqlConnection(conn))
-            {
-                await sqlConnection.OpenAsync();
                 var dynamicParameters = new DynamicParameters();
-                dynamicParameters.Add("@UserId", userId);
+                dynamicParameters.Add("@jsondata", jsonData);
+                dynamicParameters.Add("@userId", userId);
 
                 await sqlConnection.ExecuteAsync(
-                    "s_update_TVChannel",
+                    "BO_CATEGORY_PUT",
                     dynamicParameters,
                     commandType: CommandType.StoredProcedure);
 

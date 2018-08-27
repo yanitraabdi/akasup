@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pusaka.Data", "Pusaka.Data\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pusaka.Library", "Pusaka.Library\Pusaka.Library.csproj", "{C3143451-95D3-48AF-B657-8AD5D586BCEA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pusaka.Api.Test", "Pusaka.Api.Test\Pusaka.Api.Test.csproj", "{26458251-9DFA-4284-9D26-8DA2D35B0574}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,10 @@ Global
 		{C3143451-95D3-48AF-B657-8AD5D586BCEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3143451-95D3-48AF-B657-8AD5D586BCEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C3143451-95D3-48AF-B657-8AD5D586BCEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26458251-9DFA-4284-9D26-8DA2D35B0574}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26458251-9DFA-4284-9D26-8DA2D35B0574}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26458251-9DFA-4284-9D26-8DA2D35B0574}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26458251-9DFA-4284-9D26-8DA2D35B0574}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,38 +72,9 @@ Global
 		{EA8058CF-D28D-43A7-A16E-DE1FD6734BEC} = {9ED001BD-84E4-45ED-B3CD-56D7B3609E98}
 		{2C5E55DD-F9DC-439A-B465-73B28A5A98C2} = {D7E4CF02-E089-4CF6-82AB-616CF8C69DD4}
 		{C3143451-95D3-48AF-B657-8AD5D586BCEA} = {8D4DEA61-E44C-4500-827C-E04839658274}
+		{26458251-9DFA-4284-9D26-8DA2D35B0574} = {5AA2A703-FCFF-4264-ACA1-B7AADE36E92F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {88CE8599-DA6C-4329-9B83-CC164BD5C57A}
-	EndGlobalSection
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 7
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://yosuu.visualstudio.com/
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = Pusaka.Api\\Pusaka.Api.csproj
-		SccProjectTopLevelParentUniqueName1 = Pusaka.sln
-		SccProjectName1 = Pusaka.Api
-		SccLocalPath1 = Pusaka.Api
-		SccProjectUniqueName2 = Pusaka.Model\\Pusaka.Model.csproj
-		SccProjectTopLevelParentUniqueName2 = Pusaka.sln
-		SccProjectName2 = Pusaka.Model
-		SccLocalPath2 = Pusaka.Model
-		SccProjectUniqueName3 = Pusaka.Services\\Pusaka.Services.csproj
-		SccProjectTopLevelParentUniqueName3 = Pusaka.sln
-		SccProjectName3 = Pusaka.Services
-		SccLocalPath3 = Pusaka.Services
-		SccProjectUniqueName4 = Pusaka.Interfaces\\Pusaka.Interfaces.csproj
-		SccProjectTopLevelParentUniqueName4 = Pusaka.sln
-		SccProjectName4 = Pusaka.Interfaces
-		SccLocalPath4 = Pusaka.Interfaces
-		SccProjectUniqueName5 = Pusaka.Data\\Pusaka.Data.csproj
-		SccProjectTopLevelParentUniqueName5 = Pusaka.sln
-		SccProjectName5 = Pusaka.Data
-		SccLocalPath5 = Pusaka.Data
-		SccProjectUniqueName6 = Pusaka.Library\\Pusaka.Library.csproj
-		SccProjectTopLevelParentUniqueName6 = Pusaka.sln
-		SccProjectName6 = Pusaka.Library
-		SccLocalPath6 = Pusaka.Library
 	EndGlobalSection
 EndGlobal

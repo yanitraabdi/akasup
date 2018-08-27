@@ -17,7 +17,7 @@ namespace Pusaka.Services.Services
         internal const string conn = Constants.ConnectionString;
         ConnectionFactory _conn = new ConnectionFactory();
 
-        public async Task<bool> Add(Badge entity, string userId)
+        public async Task<bool> AddAsync(Badge entity, string userId)
         {            
             using (var sqlConnection = new SqlConnection(Constants.ConnectionString))
             {
@@ -68,19 +68,43 @@ namespace Pusaka.Services.Services
             }
         }
 
-        public async Task<IEnumerable<Badge>> GetAllAsync()
+        public async Task<IEnumerable<Badge>> GetAllAsync(int? CurrentPage, int? PageSize, int? TotalRecords)
         {
             using (var sqlConnection = new SqlConnection(conn))
             {
                 await sqlConnection.OpenAsync();
+
+                var dynamicParameters = new DynamicParameters();
+                dynamicParameters.Add("@CurrentPage", CurrentPage);
+                dynamicParameters.Add("@PageSize", PageSize == 0 ? 500 : PageSize);
+                dynamicParameters.Add("@TotalRecords", TotalRecords == 0 ? 500 : TotalRecords);
+
                 return await sqlConnection.QueryAsync<Badge>(
                     "BO_BADGE_GET",
-                    null,
+                    dynamicParameters,
                     commandType: CommandType.StoredProcedure);
             }
         }
 
-        public async Task<bool> Update(Badge entity, string userId)
+        public async Task<IEnumerable<Badge>> GetBadges(int BadgeStatus, int CurrentPage, int PageSize)
+        {
+            using (var sqlConnection = new SqlConnection(conn))
+            {
+                await sqlConnection.OpenAsync();
+
+                var dynamicParameters = new DynamicParameters();
+                dynamicParameters.Add("@BadgeStatus", BadgeStatus);
+                dynamicParameters.Add("@CurrentPage", CurrentPage);
+                dynamicParameters.Add("@PageSize", PageSize == 0 ? 500 : PageSize);
+
+                return await sqlConnection.QueryAsync<Badge>(
+                    "BO_BADGE_GET",
+                    dynamicParameters,
+                    commandType: CommandType.StoredProcedure);
+            }
+        }
+
+        public async Task<bool> UpdateAsync(Badge entity, string userId)
         {
             using (var sqlConnection = new SqlConnection(conn))
             {

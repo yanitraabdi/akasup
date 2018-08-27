@@ -9,7 +9,7 @@ namespace Pusaka.Services.Services
 {
     public class StudentService : IStudentInterface
     {
-        public Task<bool> Add(Students entity, string userId)
+        public Task<bool> AddAsync(Students entity, string userId)
         {
             throw new NotImplementedException();
         }
@@ -24,12 +24,12 @@ namespace Pusaka.Services.Services
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Students>> GetAllAsync()
+        public Task<IEnumerable<Students>> GetAllAsync(int? CurrentPage, int? PageSize, int? TotalRecords)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> Update(Students entity, string userId)
+        public Task<bool> UpdateAsync(Students entity, string userId)
         {
             throw new NotImplementedException();
         }
